@@ -11,7 +11,7 @@ a:hover {
 body {
 	margin: 0;
 	padding: 80px 0 0;
-	background-color: silver;
+	background-color: #fff;
 	height: 100%;
 	color: $color-text;
 	font-family: Dosis, sans-serif;
@@ -20,9 +20,10 @@ body {
 
 #header {
 	height: $header-height;
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.8);
 	border-bottom: 2px solid #ccc;
 	position: fixed;
+	z-index: 100;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -49,5 +50,42 @@ body {
 }
 
 #content {
-	height: 110%;
+	margin-top: 50px;
+
+	.menu-item {
+		margin-bottom: 50px;
+		.mi-desc,
+		.mi-img {
+			max-height: 400px;
+		}
+
+		.mi-desc {
+			padding: 90px 0;
+
+			h2 {
+				font-size: 46px;
+				text-transform: uppercase;
+				font-weight: 200;
+				color: $color-primary;
+				margin-bottom: 30px;
+				letter-spacing: 9.6px;
+				line-height: 50px;
+			}
+
+			.mi-ingredients {
+				font-weight: 200;
+				font-size: 24px;
+				margin-bottom: 30px;
+			}
+
+			.mi-price {
+				font-size: 24px;
+				font-weight: 600;
+
+				.currency {
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
 }
