@@ -4,6 +4,7 @@
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 
@@ -11,6 +12,7 @@ module.exports = {
 	entry: './src/js/main.js',
 	output: {
 		path: './build',
+		publicPath: '/',
 		filename: 'js/bundle.js'
 	},
 	devtool: 'source-map',
@@ -34,8 +36,11 @@ module.exports = {
 				loader: 'css?sourceMap!postcss-loader!sass?sourceMap'
 			})
 		}, {
-			test: /\.(otf|eot|svg|ttf|woff)/,
-			loader: 'url-loader?limit=8192&name=assets/fonts/[name].[ext]'
+			test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+			loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+		}, {
+			test: /\.(ttf|otf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?|(jpg|gif)$/,
+			loader: 'file-loader'
 		}, {
 			test: /\.png$/,
 			loader: 'url-loader?limit=100000'
@@ -45,6 +50,9 @@ module.exports = {
 		}, {
 			test: /\.gif/,
 			loader: 'file-loader'
+		}, {
+			test: /\.html$/,
+			loader: 'raw-loader'
 		}]
 	},
 	plugins: [
@@ -56,6 +64,12 @@ module.exports = {
 		}]),
 
 		new ExtractTextPlugin('style/bundle.css'),
+
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: '"development"'
+			}
+		})
 	],
 
 	postcss: function () {
